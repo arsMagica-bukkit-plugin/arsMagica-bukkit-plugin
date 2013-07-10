@@ -14,9 +14,11 @@ public class arsMagica extends JavaPlugin
 	public final Logger logger = Logger.getLogger("minecraft");
 	public static arsMagica plugin;
 	
-	public static String args1;
-	public static String args2;
-	public static String args3;
+	public static int args1;
+	public static int args2;
+	public static int args3;
+	public static int args4;
+	public static int args5;
 	public static String ChatStart = (ChatColor.BLACK + "[" + ChatColor.GOLD + "ArsMagica" + ChatColor.BLACK + "] ");
 	
     private ManaManager manaManager = new ManaManager();
@@ -101,6 +103,21 @@ public class arsMagica extends JavaPlugin
 							{
 								sender.sendMessage(ChatStart + target.getDisplayName() + "'s current mana is " + ManaManager.getManaRemaining(target));
 								sender.sendMessage(ChatStart + target.getDisplayName() + "'s max mana is " + ManaManager.getPlayerMaxMana(target));
+							}
+						}
+						else if (args[1].equalsIgnoreCase("addmana")){
+							int amount = Integer.parseInt(args[2]);
+							ManaManager.addMana(player, amount);
+						}
+					}
+				}
+				else if (args.length == 4){
+					if (args[0].equalsIgnoreCase("b"))
+					{
+						if (args[1].equalsIgnoreCase("addMana")){
+							if (target.isOnline()){
+								int amount = Integer.parseInt(args[3]);
+								ManaManager.addMana(target, amount);
 							}
 						}
 					}

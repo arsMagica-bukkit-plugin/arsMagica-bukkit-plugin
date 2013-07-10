@@ -7,9 +7,11 @@ import java.util.HashMap;
 public class ManaManager {
     private final static int init_mana = 10000;
     private final static int max_mana = 300000;
+    private final static int max_level = 50;
 
 	public static HashMap<Player, Integer> PlayersMana = new HashMap<Player, Integer>();
 	public static HashMap<Player, Integer> PlayersMaxMana = new HashMap<Player, Integer>();
+	public static HashMap<Player, Integer> PlayersLevel = new HashMap<Player, Integer>();
 	
 	public static void PlayerHasJoined (Player player){
 		if (!(PlayersMana.containsKey(player))){
@@ -43,6 +45,14 @@ public class ManaManager {
 			amount = getMaxMana();
 		}
 		PlayersMaxMana.put(player, amount);
+	}
+	
+	public static void setPlayerLevel(Player player, Integer amount){
+		if (amount > max_level)
+		{
+			amount = max_level;
+		}
+		PlayersLevel.put(player,  amount);
 	}
 	
 }
