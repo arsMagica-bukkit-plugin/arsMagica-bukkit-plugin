@@ -60,6 +60,7 @@ public class arsMagica extends JavaPlugin
 					else if (args[0].equalsIgnoreCase("B")){
 						sender.sendMessage(ChatStart + "these are the basic spells....they will cost no mana");
 						sender.sendMessage(ChatStart + "/AM B CheckMana (target)");
+						sender.sendMessage(ChatStart + "/AM B Addmana <amount> (target)");
 						}
 					}
 				else if (args.length == 2){
