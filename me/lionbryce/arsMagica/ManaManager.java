@@ -7,7 +7,7 @@ import java.util.HashMap;
 public class ManaManager {
     private final static int init_mana = 100;
     private final static int max_mana = 30000;
-    private final static int max_level = 50;
+    private final static int max_level = 30;
 
 	public static HashMap<Player, Integer> PlayersMana = new HashMap<Player, Integer>();
 	public static HashMap<Player, Integer> PlayersMaxMana = new HashMap<Player, Integer>();
