@@ -12,6 +12,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.*;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.util.Vector;
 
 public class arsMagica extends JavaPlugin
 {
@@ -63,6 +64,7 @@ public class arsMagica extends JavaPlugin
                     sender.sendMessage(ChatStart + "  - checkmana: check your mana, or someone else's mana /am b checkmana <target>");
                     sender.sendMessage(ChatStart + "  - levelUp: Level up your mana (gain 100 mana per level) /AM b levelup");
                     sender.sendMessage(ChatStart + "  - fireball: shoot a fireball /AM (power) fireball");
+                    sender.sendMessage(ChatStart + "  - jump: JUMP! /AM jump");
                 }
                 else if (args[0].equalsIgnoreCase("admin")){
                     sender.sendMessage(ChatStart + "  - addMana : /addMana (target) <amount>");
@@ -98,6 +100,11 @@ public class arsMagica extends JavaPlugin
                                 }
                             }
                         }
+                    }
+                }
+                else if (args[0].equalsIgnoreCase("jump")){
+                    if (ManaManager.preCheck(player, 75)){
+                        player.setVelocity(new Vector(player.getVelocity().getX(), 3, player.getVelocity().getZ()));
                     }
                 }
             }
