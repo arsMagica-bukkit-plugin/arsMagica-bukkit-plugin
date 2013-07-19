@@ -5,6 +5,12 @@ import org.bukkit.entity.Player;
 import java.util.HashMap;
 
 public class ManaManager {
+
+    public arsMagica plugin;
+    public ManaManager(arsMagica plugin)
+    {
+        this.plugin = plugin;
+    }
     private final static int init_mana = 100;
     private final static int max_mana = 30000;
     private final static int max_level = 30;
@@ -56,7 +62,7 @@ public class ManaManager {
 	public static boolean preCheck(Player player, Integer amount){
     	int initialMana = PlayersMana.get(player.getName());
         //Make sure you can afford it
-    	if (PlayersLevel.get(player.getName()) > PlayersMaxMana.get(player)){
+    	if (initialMana > PlayersMaxMana.get(player)){
     		PlayersMana.put(player, PlayersMaxMana.get(player));
     		
             if(initialMana <= amount){

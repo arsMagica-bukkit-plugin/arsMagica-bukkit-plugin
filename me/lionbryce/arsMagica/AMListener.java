@@ -8,11 +8,10 @@ import org.bukkit.event.player.PlayerMoveEvent;
 public class AMListener implements Listener
 {
 	public arsMagica plugin;
-	
-	public AMListener (arsMagica instance)
-	{
-		plugin = instance;
-	}
+	public AMListener (arsMagica plugin)
+    {
+        this.plugin = plugin;
+    }
 	
 	@EventHandler
 	public static void manaGain1 (PlayerMoveEvent event){
