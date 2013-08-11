@@ -6,7 +6,6 @@ import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.TreeType;
-import org.bukkit.block.Block;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.*;
@@ -122,7 +121,7 @@ public class arsMagica extends JavaPlugin
                     }
                     else if (args[0].equalsIgnoreCase("A")){
                         if(ManaManager.preCheck(player, 1000)){
-                        	((Player) sender).setHealth(((Player) sender).getHealth() + 20);
+                            ((Player) sender).setHealth(20);
                         }
                     }
                 else{
