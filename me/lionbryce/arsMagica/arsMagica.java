@@ -1,5 +1,5 @@
 package me.lionbryce.arsMagica;
-//did the git work hmm?
+
 import java.util.logging.Logger;
 
 import org.bukkit.ChatColor;
