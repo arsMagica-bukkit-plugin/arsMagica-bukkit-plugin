@@ -2,25 +2,29 @@ package me.lionbryce.arsMagica;
 
 import java.util.logging.Logger;
 
+
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.TreeType;
 import org.bukkit.command.Command;
+import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.*;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.util.Vector;
 
-public class arsMagica extends JavaPlugin
+public class ArsMagica extends JavaPlugin
 {
 	public final Logger logger = Logger.getLogger("minecraft");
 
-	public static arsMagica plugin;
+	public static ArsMagica plugin;
 
 	public static String ChatStart = (ChatColor.BLACK + "[" + ChatColor.GOLD + "ArsMagica" + ChatColor.BLACK + "] ");
 
+    private ManaManager manaManager = new ManaManager(plugin);
+    
     @Override
 	public void onDisable()
 	{
@@ -32,6 +36,8 @@ public class arsMagica extends JavaPlugin
 	{
 		PluginDescriptionFile pdfFile = this.getDescription();
 		this.logger.info(pdfFile.getName() + " version " + pdfFile.getVersion() + " has been Enabled");
+		
+		getCommand("Pray").setExecutor(new CommandExecutor(this));
 		
 	}
 	public boolean onCommand (CommandSender sender, Command cmd, String Label, String[] args)
@@ -107,23 +113,6 @@ public class arsMagica extends JavaPlugin
                     }
                 }
             }
-            else if (args.length == 2){
-                if (args[1].equalsIgnoreCase("heal")){
-                    if (args[0].equalsIgnoreCase("D")){
-                        if (ManaManager.preCheck(player, 50)){
-                            ((Player) sender).setHealth(((Player) sender).getHealth() + 3);
-                        }
-                    }
-                    else if (args[0].equalsIgnoreCase("N")){
-                        if(ManaManager.preCheck(player, 200)){
-                            ((Player) sender).setHealth(((Player) sender).getHealth() + 7);
-                        }
-                    }
-                    else if (args[0].equalsIgnoreCase("A")){
-                        if(ManaManager.preCheck(player, 1000)){
-                            ((Player) sender).setHealth(20);
-                        }
-                    }
                 else{
                     sender.sendMessage("you didn't pick a power: /na (D, N, A)");
                 }
@@ -160,33 +149,6 @@ public class arsMagica extends JavaPlugin
                         }
                     }
                 }
-            }
-            else if (args.length == 3){
-                if (args[1].equalsIgnoreCase("healother")){
-                    if (target.isOnline()){
-                        if (args[0].equalsIgnoreCase("D")){
-                            if (ManaManager.preCheck(player, 40)){
-                                target.setHealth(target.getHealth() + 3);
-                            }
-                        }
-                        else if (args[0].equalsIgnoreCase("N")){
-                            if (ManaManager.preCheck(player, 160)){
-                                target.setHealth(target.getHealth() + 7);
-                            }
-                        }
-                        else if (args[0].equalsIgnoreCase("A")){
-                            if (ManaManager.preCheck(player, 700)){
-                                target.setHealth(20);
-                            }
-                        }
-                        else{
-                            sender.sendMessage("you didn't pick a power");
-                        }
-                    }
-                }
-                else if (args[0].equalsIgnoreCase("B")){
-                }
-            }
             else if (args.length == 4){
                 if (args[0].equalsIgnoreCase("b"))
                 {
@@ -209,4 +171,7 @@ public class arsMagica extends JavaPlugin
 
         return false;
 	}
+	public ManaManager getManaManager() {
+        return manaManager;
+    }
 }

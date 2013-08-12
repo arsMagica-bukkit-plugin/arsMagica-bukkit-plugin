@@ -7,8 +7,8 @@ import org.bukkit.event.player.PlayerMoveEvent;
 
 public class AMListener implements Listener
 {
-	public arsMagica plugin;
-	public AMListener (arsMagica plugin)
+	public ArsMagica plugin;
+	public AMListener (ArsMagica plugin)
     {
         this.plugin = plugin;
     }

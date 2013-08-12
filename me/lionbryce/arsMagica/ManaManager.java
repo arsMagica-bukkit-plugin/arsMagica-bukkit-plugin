@@ -6,8 +6,8 @@ import java.util.HashMap;
 
 public class ManaManager {
 
-    public arsMagica plugin;
-    public ManaManager(arsMagica plugin)
+    public ArsMagica plugin;
+    public ManaManager(ArsMagica plugin)
     {
         this.plugin = plugin;
     }
@@ -66,7 +66,7 @@ public class ManaManager {
     		PlayersMana.put(player, PlayersMaxMana.get(player));
     		
             if(initialMana <= amount){
-                player.sendMessage(arsMagica.ChatStart + "not enough mana");
+                player.sendMessage(ArsMagica.ChatStart + "not enough mana");
                 return false;
             }
             //Else for clarity
@@ -77,7 +77,7 @@ public class ManaManager {
     	}
     	else{
     		if(initialMana <= amount){
-                player.sendMessage(arsMagica.ChatStart + "not enough mana");
+                player.sendMessage(ArsMagica.ChatStart + "not enough mana");
                 return false;
             }
             //Else for clarity
@@ -94,12 +94,12 @@ public class ManaManager {
 		if (XPLevel >= initialLevel){
 			player.giveExpLevels(initialLevel * -1);
 			PlayersLevel.put(player, initialLevel + 1);
-			player.sendMessage(arsMagica.ChatStart + "level up: " + initialLevel +1);
+			player.sendMessage(ArsMagica.ChatStart + "level up: " + initialLevel +1);
 			
 			return true;
 		}
 		else{
-			player.sendMessage(arsMagica.ChatStart + "not enough levels, level: " + initialLevel + " is required");
+			player.sendMessage(ArsMagica.ChatStart + "not enough levels, level: " + initialLevel + " is required");
 			
 			return false;
 		}
@@ -109,7 +109,7 @@ public class ManaManager {
 		if (Levelup(player)){
 			PlayersMaxMana.put(player, Level * 100);
 			PlayersMana.put(player, Level * 100);
-			player.sendMessage(arsMagica.ChatStart + "your new max mana is: " + Level * 100);
+			player.sendMessage(ArsMagica.ChatStart + "your new max mana is: " + Level * 100);
 		}
 	}
 	
