@@ -1,5 +1,8 @@
 package me.lionbryce.arsMagica;
 
+import me.lionbryce.arsMagica.spells.Jump;
+import me.lionbryce.arsMagica.spells.Pray;
+
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -19,10 +22,21 @@ public class AMCommandExecutor implements CommandExecutor {
 		Player caster = (Player) sender;
 		if(cmd.getLabel().equalsIgnoreCase("pray"))
 		{
-			Pray pray = new Pray(plugin)
-            if(plugin.getManaManager().preCastCheck(caster, pray)){
-			    pray.onCast(caster, null, args);
+			Pray x = new Pray(plugin);
+            if(plugin.getManaManager().preCheck(caster, x)){
+			    x.onCast(caster, null, args);
 			    plugin.getLogger().info("Testing Prayer Stuff!");
+            }
+            else{
+                caster.sendRawMessage(ChatColor.RED+"Not enough Mana!");
+            }
+		}
+		else if(cmd.getLabel().equalsIgnoreCase("jump"))
+		{
+			Jump x = new Jump(plugin);
+            if(plugin.getManaManager().preCheck(caster, x)){
+			    x.onCast(caster, null, args);
+			    plugin.getLogger().info("Testing Jump Stuff!");
             }
             else{
                 caster.sendRawMessage(ChatColor.RED+"Not enough Mana!");
