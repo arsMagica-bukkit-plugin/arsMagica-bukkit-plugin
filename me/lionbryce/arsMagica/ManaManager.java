@@ -59,34 +59,21 @@ public class ManaManager {
 		}
 		PlayersLevel.put(player,  amount);
 	}
-	public static boolean preCheck(Player player, Integer amount){
-    	int initialMana = PlayersMana.get(player.getName());
+	public static boolean preCheck(Player caster, Spell spellCast){
+    	if(!PlayersMana.containsKey(caster.getName())){
+    		PlayersMana.put(caster, getMaxMana());
+    	}
+    	int initialMana = PlayersMana.get(caster.getName());
         //Make sure you can afford it
-    	if (initialMana > PlayersMaxMana.get(player)){
-    		PlayersMana.put(player, PlayersMaxMana.get(player));
-    		
-            if(initialMana <= amount){
-                player.sendMessage(ArsMagica.ChatStart + "not enough mana");
-                return false;
-            }
-            //Else for clarity
-            else{
-               setManaRemaining(player, (initialMana-amount));
-                return true;
-            }
-    	}
-    	else{
-    		if(initialMana <= amount){
-                player.sendMessage(ArsMagica.ChatStart + "not enough mana");
-                return false;
-            }
-            //Else for clarity
-            else{
-               setManaRemaining(player, (initialMana-amount));
-                return true;
-            }
-    	}
-	}
+        if(initialMana<=spellCast.getManaCost()){
+            return false;
+        }
+        //Else for clarity
+        else{
+           setManaRemaining(caster, (initialMana-spellCast.getManaCost()));
+            return true;
+        }
+    }
 	public static boolean Levelup(Player player){
 		int initialLevel = PlayersLevel.get(player.getName());
 		int XPLevel = player.getExpToLevel();
