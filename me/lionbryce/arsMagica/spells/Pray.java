@@ -24,11 +24,14 @@ public class Pray implements Spell{
 				if (target.isOnline()){
 					if (args[1].equalsIgnoreCase("A")){
 						target.setHealth(20.0);
+						price = 900;
 					}
 					else if (args[1].equalsIgnoreCase("N")){
 						target.setHealth(target.getHealth() + 7.0);
+						price = 360;
 					} else {
 						target.setHealth(target.getHealth() + 3.0);
+						price = 90;
 					}
 				}
 			} else {
