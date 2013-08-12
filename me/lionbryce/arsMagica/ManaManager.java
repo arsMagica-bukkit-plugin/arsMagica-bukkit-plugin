@@ -59,7 +59,7 @@ public class ManaManager {
 		}
 		PlayersLevel.put(player,  amount);
 	}
-	public static boolean preCheck(Player caster, Spell spellCast){
+	public boolean preCheck(Player caster, Spell spellCast){
     	if(!PlayersMana.containsKey(caster.getName())){
     		PlayersMana.put(caster, getMaxMana());
     	}
