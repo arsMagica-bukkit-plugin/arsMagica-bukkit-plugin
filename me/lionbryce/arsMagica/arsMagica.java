@@ -2,18 +2,11 @@ package me.lionbryce.arsMagica;
 
 import java.util.logging.Logger;
 
-
 import org.bukkit.ChatColor;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.TreeType;
 import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.*;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.util.Vector;
 
 public class ArsMagica extends JavaPlugin
 {
@@ -36,16 +29,18 @@ public class ArsMagica extends JavaPlugin
 	{
 		PluginDescriptionFile pdfFile = this.getDescription();
 		this.logger.info(pdfFile.getName() + " version " + pdfFile.getVersion() + " has been Enabled");
-		
-		getCommand("Pray").setExecutor(new CommandExecutor(this));
+
+		getCommand("AddMana").setExecutor(new AMCommandExecutor(this));
+		getCommand("CheckMana").setExecutor(new AMCommandExecutor(this));
+		getCommand("Grow").setExecutor(new AMCommandExecutor(this));
+		getCommand("Jump").setExecutor(new AMCommandExecutor(this));
+		getCommand("fireball").setExecutor(new AMCommandExecutor(this));
+		getCommand("Levelup").setExecutor(new AMCommandExecutor(this));
+		getCommand("Pray").setExecutor(new AMCommandExecutor(this));
 		
 	}
 	public boolean onCommand (CommandSender sender, Command cmd, String Label, String[] args)
 	{
-		
-		Player target = sender.getServer().getPlayer(args[2]);
-		Player player = (Player) sender;
-
         if (cmd.getLabel().equalsIgnoreCase("AM")){
             if (args.length == 1){
                 if (args[0].equalsIgnoreCase("B")){
@@ -58,107 +53,29 @@ public class ArsMagica extends JavaPlugin
                     sender.sendMessage(ChatStart + "    to get to level 1 you need 1xp level, level 2 = 2xp levels, level 376 = 376xp levels");
 
                     sender.sendMessage(ChatStart + "these are the basic spells....they will cost no mana");
-                    sender.sendMessage(ChatStart + "/AM CheckMana (target)");
-                    sender.sendMessage(ChatStart + "/AM Addmana <amount> (target)");
-                    sender.sendMessage(ChatStart + "/AM levelUp");
+                    sender.sendMessage(ChatStart + "/CheckMana (target)");
+                    sender.sendMessage(ChatStart + "/Addmana <amount> (target)");
+                    sender.sendMessage(ChatStart + "/levelUp");
                 }
                 else if (args[0].equalsIgnoreCase("all")){
-                    sender.sendMessage(ChatStart + "  - heal: heal yourself /am (power) heal");
-                    sender.sendMessage(ChatStart + "  - healother: heal someone else /am (power) healother (target)");
-                    sender.sendMessage(ChatStart + "  - addMana: add mana to yourself or others /am b addMana (amount) <target> ... admin");
-                    sender.sendMessage(ChatStart + "  - checkmana: check your mana, or someone else's mana /am b checkmana <target>");
-                    sender.sendMessage(ChatStart + "  - levelUp: Level up your mana (gain 100 mana per level) /AM b levelup");
-                    sender.sendMessage(ChatStart + "  - fireball: shoot a fireball /AM (power) fireball");
-                    sender.sendMessage(ChatStart + "  - jump: JUMP! /AM jump");
+                    sender.sendMessage(ChatStart + "  - heal: heal yourself or someone else /Pray (power) <target>");
+                    sender.sendMessage(ChatStart + "  - addMana: add mana to yourself or others /addMana (amount) <target> ... admin");
+                    sender.sendMessage(ChatStart + "  - checkmana: check your mana, or someone else's mana /checkmana <target>");
+                    sender.sendMessage(ChatStart + "  - levelUp: Level up your mana (gain 100 mana per level) /levelup");
+                    sender.sendMessage(ChatStart + "  - fireball: shoot a fireball /fireball (power)");
+                    sender.sendMessage(ChatStart + "  - jump: JUMP! /jump");
+                    sender.sendMessage(ChatStart + "  - grow: Grow stuff! /grow");
                 }
                 else if (args[0].equalsIgnoreCase("admin")){
                     sender.sendMessage(ChatStart + "  - addMana : /addMana (target) <amount>");
                 }
                 else if (args[0].equalsIgnoreCase("spellhelp")){
-                    sender.sendMessage(ChatStart + "/AM (power) <spell> (target) (amount)");
-                    sender.sendMessage(ChatStart + "/AM starts all spells");
+                    sender.sendMessage(ChatStart + "/(spell)(power) <spell> (target) (amount)");
+                    sender.sendMessage(ChatStart + "/AM doesn't start all spells");
                     sender.sendMessage(ChatStart + "anything in <>'s are a must have");
                     sender.sendMessage(ChatStart + "anything in ()'s are custom to every spell as in you may need them, and you my not");
                 }
-                else if (args[0].equalsIgnoreCase("levelup")){
-                    ManaManager.preCheck(player, 0);
-                    sender.sendMessage(ChatStart + "your current mana is " + ManaManager.getManaRemaining(player));
-                    sender.sendMessage(ChatStart + "your max mana is " + ManaManager.getPlayerMaxMana(player));
-                }
-                else if (args[0].equalsIgnoreCase("levelup")){
-                    ManaManager.Levelup(player);
-                    ManaManager.manaUpdate(player);
-                }
-                else if (args[0].equalsIgnoreCase("grow")){
-                    if (ManaManager.preCheck(player, 75)){
-                        if (player.getLineOfSight(null, 100).equals(Material.SAPLING)){
-                            player.getWorld().generateTree((Location) player.getLineOfSight(null, 100), TreeType.TREE);
-                        }
-                    }
-                    else{
-                        for (LivingEntity other : player.getWorld().getLivingEntities()){
-                            if (other instanceof Animals){
-                                if (!(((Animals) other).isAdult())){
-                                    if (player.hasLineOfSight(other)){
-                                        ((Animals) other).setAdult();
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-                else if (args[0].equalsIgnoreCase("jump")){
-                    if (ManaManager.preCheck(player, 75)){
-                        player.setVelocity(new Vector(player.getVelocity().getX(), 3, player.getVelocity().getZ()));
-                    }
-                }
             }
-                else{
-                    sender.sendMessage("you didn't pick a power: /na (D, N, A)");
-                }
-            }
-                else if (args[0].equalsIgnoreCase("checkmana")){
-                        if (target.isOnline()){
-                            ManaManager.preCheck(target, 0);
-                            sender.sendMessage(ChatStart + target.getDisplayName() + "'s current mana is " + ManaManager.getManaRemaining(target));
-                            sender.sendMessage(ChatStart + target.getDisplayName() + "'s max mana is " + ManaManager.getPlayerMaxMana(target));
-                        }
-                    }
-                else if (args[0].equalsIgnoreCase("addmana")){
-                        int amount = Integer.parseInt(args[2]);
-                        ManaManager.addMana(player, amount);
-                }
-
-                else if (args[0].equalsIgnoreCase("fireball")){
-                    if (args[1].equalsIgnoreCase("d")){
-                        if(ManaManager.preCheck(player, 100)){
-                            ((Player) sender).launchProjectile(SmallFireball.class);
-                        }
-                    }
-                    if (args[1].equalsIgnoreCase("n")){
-                        if(ManaManager.preCheck(player, 500)){
-                            ((Player) sender).launchProjectile(SmallFireball.class);
-                            ((Player) sender).launchProjectile(Fireball.class);
-                        }
-                    }
-                    if (args[1].equalsIgnoreCase("a")){
-                        if(ManaManager.preCheck(player, 2500)){
-                            ((Player) sender).launchProjectile(Fireball.class);
-                            ((Player) sender).launchProjectile(Fireball.class);
-                            ((Player) sender).launchProjectile(Fireball.class);
-                        }
-                    }
-                }
-            else if (args.length == 4){
-                if (args[0].equalsIgnoreCase("b"))
-                {
-                    if (args[1].equalsIgnoreCase("addMana")){
-                        if (target.isOnline()){
-                            int amount = Integer.parseInt(args[3]);
-                            ManaManager.addMana(target, amount);
-                        }
-                    }
-                }
             }
             else{
                 sender.sendMessage(ChatStart + "this is the main page for the plugin ArsMagica");
@@ -167,11 +84,9 @@ public class ArsMagica extends JavaPlugin
                 sender.sendMessage(ChatStart + "to see all the spells /AM All");
                 sender.sendMessage(ChatStart + "to see all the admin spells /AM admin");
             }
-        }
-
         return false;
-	}
-	public ManaManager getManaManager() {
+        }
+	public ManaManager getManaManager(){
         return manaManager;
     }
 }

@@ -33,6 +33,8 @@ public class Pray implements Spell{
 						target.setHealth(target.getHealth() + 3.0);
 						price = 90;
 					}
+				} else {
+					caster.sendMessage(target.getName() + " isn't online");
 				}
 			} else {
 				if (args[1].equalsIgnoreCase("A")){
