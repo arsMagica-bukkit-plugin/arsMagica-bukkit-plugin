@@ -27,13 +27,13 @@ public class ArsMagica extends JavaPlugin
 	@Override
 	public void onEnable()
 	{
-		getCommand("AddMana").setExecutor(new AMCommandExecutor(this));
-		getCommand("CheckMana").setExecutor(new AMCommandExecutor(this));
-		getCommand("Grow").setExecutor(new AMCommandExecutor(this));
-		getCommand("Jump").setExecutor(new AMCommandExecutor(this));
-		getCommand("fireball").setExecutor(new AMCommandExecutor(this));
-		getCommand("Levelup").setExecutor(new AMCommandExecutor(this));
-		getCommand("Pray").setExecutor(new AMCommandExecutor(this));
+		getCommand("addmana").setExecutor(new AMCommandExecutor(this));
+		getCommand("checkmana").setExecutor(new AMCommandExecutor(this));
+		getCommand("grow").setExecutor(new AMCommandExecutor(this));
+		getCommand("jump").setExecutor(new AMCommandExecutor(this));
+		getCommand("launchfireball").setExecutor(new AMCommandExecutor(this));
+		getCommand("levelup").setExecutor(new AMCommandExecutor(this));
+		getCommand("pray").setExecutor(new AMCommandExecutor(this));
 		
 	}
 	public boolean onCommand (CommandSender sender, Command cmd, String Label, String[] args)
