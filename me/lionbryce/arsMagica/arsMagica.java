@@ -27,9 +27,6 @@ public class ArsMagica extends JavaPlugin
 	@Override
 	public void onEnable()
 	{
-		PluginDescriptionFile pdfFile = this.getDescription();
-		this.logger.info(pdfFile.getName() + " version " + pdfFile.getVersion() + " has been Enabled");
-
 		getCommand("AddMana").setExecutor(new AMCommandExecutor(this));
 		getCommand("CheckMana").setExecutor(new AMCommandExecutor(this));
 		getCommand("Grow").setExecutor(new AMCommandExecutor(this));
